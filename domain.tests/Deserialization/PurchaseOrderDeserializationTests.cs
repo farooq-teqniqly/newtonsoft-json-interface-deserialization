@@ -6,9 +6,9 @@ using infrastructure.Models;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace domain.tests.CreationConverters
+namespace domain.tests.Deserialization
 {
-    public class PurchaseOrderConverterTests
+    public class PurchaseOrderDeserializationTests
     {
         [Fact]
         public void Deserialize_PurchaseOrder()
@@ -45,10 +45,10 @@ namespace domain.tests.CreationConverters
 
             var actualPurchaseOrder = JsonConvert.DeserializeObject<IPurchaseOrder>(
                 json,
-                new PurchaseOrderConverter(),
-                new SupplierConverter(),
-                new PurchaseOrderLineItemConverter(),
-                new AttachmentConverter());
+                new ModelConverter<IPurchaseOrder, PurchaseOrder>(),
+                new ModelConverter<ISupplier, Supplier>(),
+                new ModelConverter<IPurchaseOrderLineItem, PurchaseOrderLineItem>(),
+                new ModelConverter<IAttachment, Attachment>());
 
             actualPurchaseOrder.Should().BeEquivalentTo(expectedPurchaseOrder);
         }
@@ -117,10 +117,10 @@ namespace domain.tests.CreationConverters
 
             var actualPurchaseOrders = JsonConvert.DeserializeObject<IPurchaseOrder[]>(
                 json,
-                new PurchaseOrderConverter(),
-                new SupplierConverter(),
-                new PurchaseOrderLineItemConverter(),
-                new AttachmentConverter());
+                new ModelConverter<IPurchaseOrder, PurchaseOrder>(),
+                new ModelConverter<ISupplier, Supplier>(),
+                new ModelConverter<IPurchaseOrderLineItem, PurchaseOrderLineItem>(),
+                new ModelConverter<IAttachment, Attachment>());
 
             actualPurchaseOrders.Should().BeEquivalentTo(expectedPurchaseOrders);
         }

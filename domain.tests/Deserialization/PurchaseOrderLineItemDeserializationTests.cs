@@ -6,9 +6,9 @@ using infrastructure.Models;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace domain.tests.CreationConverters
+namespace domain.tests.Deserialization
 {
-    public class PurchaseOrderLineItemConverterTests
+    public class PurchaseOrderLineItemDeserializationTests
     {
         [Fact]
         public void Deserialize_PurchaseOrderLineItem()
@@ -24,7 +24,8 @@ namespace domain.tests.CreationConverters
 
             var actualPurchaseOrderLineItem = JsonConvert.DeserializeObject<IPurchaseOrderLineItem>(
                 json,
-                new PurchaseOrderLineItemConverter(), new AttachmentConverter());
+                new ModelConverter<IPurchaseOrderLineItem, PurchaseOrderLineItem>(),
+                new ModelConverter<IAttachment, Attachment>());
 
             actualPurchaseOrderLineItem.Should().BeEquivalentTo(expectedPurchaseOrderLineItem);
 
@@ -56,8 +57,8 @@ namespace domain.tests.CreationConverters
 
             var actualPurchaseOrderLineItems = JsonConvert.DeserializeObject<IPurchaseOrderLineItem[]>(
                 json,
-                new PurchaseOrderLineItemConverter(), 
-                new AttachmentConverter());
+                new ModelConverter<IPurchaseOrderLineItem, PurchaseOrderLineItem>(),
+                new ModelConverter<IAttachment, Attachment>());
 
             actualPurchaseOrderLineItems.Should().BeEquivalentTo(expectedPurchaseOrderLineItems);
 

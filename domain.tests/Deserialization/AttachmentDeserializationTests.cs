@@ -4,9 +4,9 @@ using infrastructure.Models;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace domain.tests.CreationConverters
+namespace domain.tests.Deserialization
 {
-    public class AttachmentConverterTests
+    public class AttachmentDeserializationTests
     {
         [Fact]
         public void Deserialize_Attachment()
@@ -16,7 +16,7 @@ namespace domain.tests.CreationConverters
 
             var actualAttachment = JsonConvert.DeserializeObject<IAttachment>(
                 json,
-                new AttachmentConverter());
+                new ModelConverter<IAttachment, Attachment>());
 
             actualAttachment.Should().BeEquivalentTo(expectedAttachment);
 
@@ -36,7 +36,7 @@ namespace domain.tests.CreationConverters
 
             var actualAttachments = JsonConvert.DeserializeObject<IAttachment[]>(
                 json,
-                new AttachmentConverter());
+                new ModelConverter<IAttachment, Attachment>());
 
             actualAttachments.Should().BeEquivalentTo(expectedAttachments);
 

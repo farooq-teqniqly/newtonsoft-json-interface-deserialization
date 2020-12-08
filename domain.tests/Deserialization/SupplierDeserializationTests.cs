@@ -5,9 +5,9 @@ using infrastructure.Models;
 using Newtonsoft.Json;
 using Xunit;
 
-namespace domain.tests.CreationConverters
+namespace domain.tests.Deserialization
 {
-    public class SupplierConverterTests
+    public class SupplierDeserializationTests
     {
         [Fact]
         public void Deserialize_Supplier()
@@ -17,7 +17,7 @@ namespace domain.tests.CreationConverters
 
             var actualSupplier = JsonConvert.DeserializeObject<ISupplier>(
                 json, 
-                new SupplierConverter());
+                new ModelConverter<ISupplier, Supplier>());
 
             actualSupplier.Should().BeEquivalentTo(expectedSupplier);
 
@@ -40,7 +40,7 @@ namespace domain.tests.CreationConverters
 
             var actualSuppliers = JsonConvert.DeserializeObject<ISupplier[]>(
                 json,
-                new SupplierConverter());
+                new ModelConverter<ISupplier, Supplier>());
 
             actualSuppliers.Should().BeEquivalentTo(expectedSuppliers);
 
